@@ -41,7 +41,7 @@
 
                 <div class="form-group">
                     <label id="lblXID" for="xTwitterID">X (Twitter) @ユーザーID</label>
-                    <input type="text" id="xTwitterID" value=""　placeholder="@無しでも大丈夫です">
+                    <input type="text" id="xTwitterID" value="" placeholder="@無しでも大丈夫です (QRコードに変換されます)">
                 </div>
 
                 <div class="flex-row">
@@ -70,10 +70,10 @@
 
                 <div class="flex-row">
                     <div class="form-group">
-                        <label id="lblOrientation">▼ カード形態</label>
+                        <label id="lblOrientation">▼ カードの向き</label>
                         <div class="flex-row" style="gap:4px; margin-top:2px;">
-                            <label class="radio-label"><input type="radio" name="cardOrientation" value="horizontal" checked><span id="optHoriz">横型</span></label>
-                            <label class="radio-label"><input type="radio" name="cardOrientation" value="vertical"><span id="optVert">縦型</span></label>
+                            <label class="radio-label"><input type="radio" name="cardOrientation" value="horizontal" ><span id="optHoriz">横型</span></label>
+                            <label class="radio-label"><input type="radio" name="cardOrientation" value="vertical" checked><span id="optVert">縦型</span></label>
                         </div>
                     </div>
                     <div class="form-group">
@@ -93,24 +93,24 @@
                     </label>
                 </div>
 
-                <h3 class="section-title">🎨 Interface Colors</h3>
+                <h3 class="section-title">Interface Colors</h3>
                 <div class="flex-row">
                     <div class="form-group">
-                        <label id="lblCol1">主灯色 (テーマ1):</label>
+                        <label id="lblCol1">メインカラー:</label>
                         <input type="color" id="themeColorPicker" value="#00f0ff">
                     </div>
                     <div class="form-group">
-                        <label id="lblCol2">警告色:</label>
+                        <label id="lblCol2">サブカラー:</label>
                         <input type="color" id="themeColorPicker2" value="#ff007f">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label id="lblColors">クイックテーマプリセット</label>
+                    <label id="lblColors">テーマプリセット</label>
                     <div class="palette-container" id="paletteContainer"></div>
                 </div>
 
-                <h3 class="section-title">📊 Operational Status Data</h3>
+                <h3 class="section-title">Operational Status Data</h3>
                 <div class="form-group">
                     <label id="lblPlaystyle">プレイスタイル (複数選択可)</label>
                     <div class="checkbox-grid" id="playstyleGrid"></div>
@@ -127,9 +127,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label id="lblComment">裏面通信コメント</label>
+                    <label id="lblComment">裏面コメント</label>
                     <div class="comment-container">
-                        <textarea id="backComment" rows="5"></textarea>
+                        <textarea id="backComment" rows="5" placeholder="改行もできます"></textarea>
                         <select id="textFontComment" class="comment-font-select">
                             <option value="'Orbitron', sans-serif" selected>Orbitron</option>
                             <option value="'Cinzel', serif">Cinzel</option>
