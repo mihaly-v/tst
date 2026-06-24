@@ -301,8 +301,7 @@ function wrapAndDrawText(targetCtx, text, x, y, maxWidth, lineHeight) {
 }
 
 function renderCanvas() {
-    // 1. 各種データの取得
-    const name = document.getElementById('charName').value || 'Unknown';
+    const name = document.getElementById('charName').value || 'UNKNOWN_SUBJECT';
     const dc = dcSelect.value || '---'; const world = worldSelect.value || '---';
     const orientation = document.querySelector('input[name="cardOrientation"]:checked').value;
     const layoutPattern = document.querySelector('input[name="layoutPattern"]:checked').value;
@@ -316,8 +315,11 @@ function renderCanvas() {
         const found = jobMasterCategorized[rk].find(j => j.id === mainJobSelect.value); if(found) targetJobObj = found;
     });
 
-    const cardW = (orientation === 'vertical') ? 1000 : 1545; const cardH = (orientation === 'vertical') ? 1545 : 1000;
-    const backW = 1000; const backH = 1545;
+    // 縦横のサイズ設定（裏面も連動）
+    const cardW = (orientation === 'vertical') ? 1000 : 1545; 
+    const cardH = (orientation === 'vertical') ? 1545 : 1000;
+    const backW = cardW; 
+    const backH = cardH;
 
     canvas.width = cardW; canvas.height = cardH; canvasBack.width = backW; canvasBack.height = backH;
 
@@ -373,28 +375,31 @@ function renderCanvas() {
     });
     drawCyberBarcode(ctx, 45, cardH - 110, 360, 42, themeColor, alertColor, generatedID);
 
-    // 3. 【裏面】描画
+    // 3. 【裏面】描画（横型に対応して位置調整）
     ctxBack.fillStyle = themeColor; ctxBack.fillRect(0, 0, backW, backH);
     ctxBack.strokeStyle = alertColor; ctxBack.lineWidth = 5; ctxBack.strokeRect(20, 20, backW - 40, backH - 40);
     ctxBack.strokeStyle = backTextColor; ctxBack.lineWidth = 1.5; ctxBack.strokeRect(28, 28, backW - 56, backH - 56);
-    ctxBack.textBaseline = 'middle'; ctxBack.textAlign = 'center'; ctxBack.fillStyle = backTextColor; ctxBack.font = 'bold 50px "Orbitron", sans-serif'; ctxBack.fillText('FINAL FANTASY XIV', backW / 2, backH * 0.08);
     
+    ctxBack.textBaseline = 'middle'; ctxBack.textAlign = 'center'; ctxBack.fillStyle = backTextColor; 
+    ctxBack.font = 'bold 50px "Orbitron", sans-serif'; ctxBack.fillText('FINAL FANTASY XIV', backW / 2, backH * 0.15);
+    
+    // サイン・コメント位置調整
     ctxBack.save(); ctxBack.fillStyle = (backTextColor === '#ffffff') ? 'rgba(255,255,255,0.95)' : 'rgba(0,0,0,0.90)';
-    let signFontSize = 285; ctxBack.font = `lighter ${signFontSize}px "Meow Script", "cursive"`;
-    let signMetrics = ctxBack.measureText(name).width;
-    if (signMetrics > 850) { signFontSize = Math.floor(285 * (850 / signMetrics)); ctxBack.font = `lighter ${signFontSize}px "Meow Script", "cursive"`; }
-    ctxBack.translate(backW / 2, backH * 0.27); ctxBack.rotate(-5 * Math.PI / 180); ctxBack.fillText(name, 0, 0); ctxBack.restore();
+    let signFontSize = 200; ctxBack.font = `lighter ${signFontSize}px "Meow Script", "cursive"`;
+    ctxBack.translate(backW / 2, backH * 0.4); ctxBack.rotate(-2 * Math.PI / 180); ctxBack.fillText(name, 0, 0); ctxBack.restore();
     
-    ctxBack.save(); ctxBack.fillStyle = backTextColor; ctxBack.font = `30px ${fontForComment}`; ctxBack.textAlign = 'left'; ctxBack.textBaseline = 'top';
-    wrapAndDrawText(ctxBack, backComment, (backW - 800) / 2, backH * 0.46, 800, 48); ctxBack.restore();
+    ctxBack.save(); ctxBack.fillStyle = backTextColor; ctxBack.font = `30px ${fontForComment}`; ctxBack.textAlign = 'center'; ctxBack.textBaseline = 'top';
+    wrapAndDrawText(ctxBack, backComment, backW / 2, backH * 0.6, 800, 48); ctxBack.restore();
     
-    ctxBack.fillStyle = backTextColor; ctxBack.font = `900 54px "Orbitron", sans-serif`; ctxBack.fillText(name, backW / 2, backH - 370); 
+    ctxBack.fillStyle = backTextColor; ctxBack.font = `900 54px "Orbitron", sans-serif`; ctxBack.fillText(name, backW / 2, backH * 0.85); 
     drawCyberBarcode(ctxBack, backW / 2 - 220, backH - 110, 440, 45, alertColor, alertColor, generatedID); 
 
-    // 4. 【QR描画】白背景なし・ドットのみを描画
+    // 4. 【QR描画】
     if (cachedQrSourceCanvas) {
+        // 表面：右下
         drawQrWithoutBase(ctx, cardW - 120 - 45, cardH - 120 - 45, 120, themeColor);
-        drawQrWithoutBase(ctxBack, (backW - 130) / 2, backH - 290, 130, alertColor);
+        // 裏面：右下（横型でもはみ出さない位置）
+        drawQrWithoutBase(ctxBack, backW - 130 - 45, backH - 130 - 45, 130, alertColor);
     }
 
     resultImage.src = canvas.toDataURL('image/png');
