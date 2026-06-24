@@ -25,7 +25,7 @@
                 <div class="form-group">
                     <label id="lblCharName" for="charName">名前 (キャラクター名)</label>
                     <div class="name-input-container">
-                        <input type="text" id="charName" value="">
+                        <input type="text" id="charName" value="" placeholder="アルファベットがおすすめです">
                         <select id="textFontName">
                             <option value="'Orbitron', sans-serif" selected>Orbitron</option>
                             <option value="'Cinzel', serif">Cinzel</option>
@@ -41,7 +41,7 @@
 
                 <div class="form-group">
                     <label id="lblXID" for="xTwitterID">X (Twitter) @ユーザーID</label>
-                    <input type="text" id="xTwitterID" value="">
+                    <input type="text" id="xTwitterID" value=""　placeholder="@無しでも大丈夫です">
                 </div>
 
                 <div class="flex-row">
@@ -49,15 +49,15 @@
                         <label id="lblAffiliation">所属サーバー (DC / WORLD)</label>
                         <div class="flex-row" style="gap:4px;">
                             <select id="dcSelect">
-                                <option value="">-- DC --</option>
+                                <option value="" selected>-- DC --</option>
                                 <option value="Secret">Secret</option>
                                 <option value="Elemental">Elemental</option>
                                 <option value="Gaia">Gaia</option>
-                                <option value="Mana" selected>Mana</option>
+                                <option value="Mana" >Mana</option>
                                 <option value="Meteor">Meteor</option>
                             </select>
                             <select id="worldSelect">
-                                <option value="Chocobo" selected>Chocobo</option>
+                                <option value="" selected>-- --</option>
                             </select>
                         </div>
                     </div>
@@ -131,10 +131,14 @@
                     <div class="comment-container">
                         <textarea id="backComment" rows="5"></textarea>
                         <select id="textFontComment" class="comment-font-select">
-                            <option value="'Noto Sans JP', sans-serif" selected>Noto Sans JP</option>
-                            <option value="'M PLUS 1p', sans-serif">M PLUS</option>
+                            <option value="'Orbitron', sans-serif" selected>Orbitron</option>
+                            <option value="'Cinzel', serif">Cinzel</option>
+                            <option value="'Montserrat', sans-serif">Montserrat</option>
                             <option value="'Share Tech Mono', monospace">Tech Mono</option>
+                            <option value="'Noto Sans JP', sans-serif">Noto Sans JP</option>
+                            <option value="'M PLUS 1p', sans-serif">M PLUS</option>
                             <option value="'Noto Sans KR', sans-serif">Noto Sans KR</option>
+                            <option value="'Black Han Sans', sans-serif">Black Han Sans</option>
                         </select>
                     </div>
                 </div>
