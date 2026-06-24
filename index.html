@@ -2,191 +2,178 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>NEO CITIZEN CARD GENERATOR</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Share+Tech+Mono&family=Hachi+Maru+Pop&family=Meow+Script&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <style>
-        body { background-color: #0a0a0f; color: #e0e0e6; font-family: sans-serif; margin: 20px; }
-        h1 { font-family: 'Orbitron', sans-serif; text-align: center; color: #00ffcc; text-shadow: 0 0 10px rgba(0,255,204,0.5); margin-bottom: 5px; }
-        
-        /* 言語切り替えボタングループ */
-        .lang-switcher { text-align: center; margin-bottom: 25px; }
-        .lang-btn { background: #1c1c24; border: 2px solid #34344a; color: #8a8a9e; padding: 6px 18px; font-family: 'Orbitron', sans-serif; font-weight: bold; cursor: pointer; border-radius: 4px; transition: all 0.2s; margin: 0 5px; }
-        .lang-btn.active { background: #00ffcc; color: #000; border-color: #00ffcc; box-shadow: 0 0 10px rgba(0,255,204,0.4); }
-        
-        .container { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
-        .editor-side, .preview-side { background: #121218; padding: 20px; border-radius: 8px; border: 1px solid #232330; min-width: 340px; max-width: 600px; flex: 1; }
-        
-        /* デザイングループ用の枠 */
-        .design-bundle-box { border: 2px dashed #34344a; background: #161622; padding: 15px; border-radius: 6px; margin-top: 20px; margin-bottom: 20px; }
-        .bundle-title { font-family: 'Orbitron', sans-serif; font-size: 0.95em; color: #00ffcc; margin-top: 0; margin-bottom: 15px; letter-spacing: 1px; display: flex; align-items: center; gap: 6px; border-bottom: 1px solid #34344a; padding-bottom: 6px;}
-        
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 0.9em; color: #8a8a9e; }
-        input[type="text"], select, textarea { width: 100%; padding: 8px; background: #1c1c24; border: 1px solid #34344a; color: #fff; border-radius: 4px; box-sizing: border-box; }
-        
-        /* 快適なグリッド配置 */
-        .checkbox-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(135px, 1fr)); gap: 6px; }
-        .checkbox-label { display: flex; align-items: center; gap: 5px; background: #1c1c24; padding: 5px 8px; border-radius: 4px; cursor: pointer; font-size: 0.82em; user-select: none; }
-        .radio-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(145px, 1fr)); gap: 6px; }
-        .radio-label { display: flex; align-items: center; gap: 5px; background: #1c1c24; padding: 5px 8px; border-radius: 4px; cursor: pointer; font-size: 0.82em; user-select: none; }
-        
-        /* ネオンカラーパレット用のスタイリング */
-        .color-palette-container { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 8px; }
-        .palette-btn { background: #222230; border: 1px solid #3d3d5c; border-radius: 4px; cursor: pointer; padding: 6px 4px; display: flex; flex-direction: column; align-items: center; gap: 4px; transition: all 0.2s; }
-        .palette-btn:hover { background: #2c2c3f; border-color: #00ffcc; }
-        .palette-preview { display: flex; width: 100%; height: 12px; border-radius: 2px; overflow: hidden; border: 1px solid rgba(0,0,0,0.5); }
-        .palette-color { flex: 1; height: 100%; }
-        .palette-label { font-size: 10px; font-family: 'Share Tech Mono', monospace; color: #b5b5c5; text-align: center; white-space: nowrap; }
-
-        .preview-box { text-align: center; margin-bottom: 20px; }
-        .preview-box p { font-family: 'Share Tech Mono', monospace; color: #00ffcc; margin-bottom: 5px; }
-        .preview-box img { max-width: 100%; height: auto; border: 2px dashed #34344a; background: #000; cursor: move; }
-        .hidden-canvas { display: none; }
-        .instructions { font-size: 0.8em; color: #ff0055; margin-top: 5px; font-family: 'Share Tech Mono', monospace; }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FFXIV CHARACTER CARD GENERATOR</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Share+Tech+Mono&family=Noto+Sans+JP:wght@400;700&family=M+PLUS+1p:wght@400;800&family=Noto+Sans+KR:wght@400;700&family=Black+Han+Sans&family=Cinzel:wght@700&family=Montserrat:wght@400;700&family=Meow+Script&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h1>NEO CITIZEN ID GENERATOR</h1>
-
-<div class="lang-switcher">
-    <button type="button" id="btnLangJP" class="lang-btn active">JAPANESE</button>
-    <button type="button" id="btnLangEN" class="lang-btn">English</button>
-</div>
-
-<div class="container">
-    <div class="editor-side">
-        <div class="form-group">
-            <label id="lblCharName">名前 (キャラクター名)</label>
-            <input type="text" id="charName" value="NEO_MELDY">
+    <header>
+        <div class="header-title" id="lblHeaderTitle">FFXIV CHARACTER CARD GENERATOR</div>
+        <div class="lang-switcher">
+            <button id="btnLangJP" class="lang-btn active">JAPANESE</button>
+            <button id="btnLangEN" class="lang-btn">ENGLISH</button>
         </div>
-        
-        <div class="form-group">
-            <label id="lblXID">X (Twitter) @ユーザーID ※右下と裏面にQRコード配置</label>
-            <input type="text" id="xTwitterID" value="FF14_official" placeholder="@は入力不要です">
-        </div>
+    </header>
 
-        <div class="form-group">
-            <label id="lblAffiliation">所属サーバー (DC / WORLD)</label>
-            <div style="display:flex; gap:10px;">
-                <select id="dcSelect">
-                    <option value="">データセンターを選択...</option>
-                    <option value="Secret">Secret</option>
-                    <option value="Elemental">Elemental</option>
-                    <option value="Gaia" selected>Gaia</option>
-                    <option value="Mana">Mana</option>
-                    <option value="Meteor">Meteor</option>
-                </select>
-                <select id="worldSelect">
-                    <option value="Alexander">Alexander</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label id="lblMainJob">メインジョブ</label>
-            <select id="mainJob">
-                </select>
-        </div>
-
-        <div class="form-group">
-            <label id="lblBgImage">背景画像アップロード</label>
-            <input type="file" id="bgImage" accept="image/*">
-            <div class="instructions" id="lblInst">★プレビュー画像の上をドラッグで移動、ホイール回転で拡大縮小できます（枠より小さくなりません）</div>
-        </div>
-
-        <div class="design-bundle-box">
-            <div class="bundle-title" id="lblBundleTitle">⚙️ CARD DESIGN SYSTEM (デザイン設定)</div>
+    <div class="center-wrapper">
+        <div class="main-container">
             
-            <div class="form-group" style="margin-bottom: 14px;">
-                <label id="lblOrientation" style="color:#a5a5b5;">▼ カード形態</label>
-                <div style="display:flex; gap:15px;">
-                    <label><input type="radio" name="cardOrientation" value="horizontal" checked> <span id="optHoriz">横型カード</span></label>
-                    <label><input type="radio" name="cardOrientation" value="vertical"> <span id="optVert">縦型カード</span></label>
-                </div>
-            </div>
-
-            <div class="form-group" style="margin-bottom: 14px;">
-                <label id="lblPattern" style="color:#a5a5b5;">▼ レイアウトパターン</label>
-                <div style="display:flex; gap:15px;">
-                    <label><input type="radio" name="layoutPattern" value="A" checked> PATTERN A (標準)</label>
-                    <label><input type="radio" name="layoutPattern" value="B"> PATTERN B (反転)</label>
-                </div>
-            </div>
-            
-            <div class="form-group" style="margin-bottom: 14px;">
-                <label id="lblColors" style="color:#a5a5b5;">▼ テーマカラー設定</label>
-                <div style="display:flex; gap:20px;">
-                    <div><span id="lblCol1">主灯色:</span> <input type="color" id="themeColorPicker" value="#00ffcc"></div>
-                    <div><span id="lblCol2">警告色:</span> <input type="color" id="themeColorPicker2" value="#ff0055"></div>
-                </div>
+            <div class="control-panel">
                 
-                <div class="color-palette-container" id="paletteContainer">
+                <div class="form-group">
+                    <label id="lblCharName" for="charName">名前 (キャラクター名)</label>
+                    <div class="name-input-container">
+                        <input type="text" id="charName" value="" placeholder="アルファベットがおすすめです">
+                        <select id="textFontName">
+                            <option value="'Orbitron', sans-serif" selected>Orbitron</option>
+                            <option value="'Cinzel', serif">Cinzel</option>
+                            <option value="'Montserrat', sans-serif">Montserrat</option>
+                            <option value="'Share Tech Mono', monospace">Tech Mono</option>
+                            <option value="'Noto Sans JP', sans-serif">Noto Sans JP</option>
+                            <option value="'M PLUS 1p', sans-serif">M PLUS</option>
+                            <option value="'Noto Sans KR', sans-serif">Noto Sans KR</option>
+                            <option value="'Black Han Sans', sans-serif">Black Han Sans</option>
+                        </select>
                     </div>
+                </div>
+
+                <div class="form-group">
+                    <label id="lblXID" for="xTwitterID">X (Twitter) @ユーザーID</label>
+                    <input type="text" id="xTwitterID" value="" placeholder="@無しでも大丈夫です (QRコードに変換されます)">
+                </div>
+
+                <div class="flex-row">
+                    <div class="form-group">
+                        <label id="lblAffiliation">所属サーバー (DC / WORLD)</label>
+                        <div class="flex-row" style="gap:4px;">
+                            <select id="dcSelect">
+                                <option value="" selected>-- DC --</option>
+                                <option value="Secret">Secret</option>
+                                <option value="Elemental">Elemental</option>
+                                <option value="Gaia">Gaia</option>
+                                <option value="Mana" >Mana</option>
+                                <option value="Meteor">Meteor</option>
+                            </select>
+                            <select id="worldSelect">
+                                <option value="" selected>-- --</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label id="lblMainJob" for="mainJob">メインジョブ</label>
+                        <select id="mainJob"></select>
+                    </div>
+                </div>
+
+                <div class="flex-row">
+                    <div class="form-group">
+                        <label id="lblOrientation">▼ カードの向き</label>
+                        <div class="flex-row" style="gap:4px; margin-top:2px;">
+                            <label class="radio-label"><input type="radio" name="cardOrientation" value="horizontal" ><span id="optHoriz">横型</span></label>
+                            <label class="radio-label"><input type="radio" name="cardOrientation" value="vertical" checked><span id="optVert">縦型</span></label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label id="lblPattern">▼ パターン</label>
+                        <div class="flex-row" style="gap:4px; margin-top:2px;">
+                            <label class="radio-label"><input type="radio" name="layoutPattern" value="A"><span>A</span></label>
+                            <label class="radio-label"><input type="radio" name="layoutPattern" value="B" checked><span>B</span></label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label id="lblBgImage">背景画像アップロード</label>
+                    <label class="custom-file-upload">
+                        <input type="file" id="bgImage" accept="image/*">
+                        <span id="file-upload-text">SELECT IMAGE FILE_</span>
+                    </label>
+                </div>
+
+                <h3 class="section-title">Interface Colors</h3>
+                <div class="flex-row">
+                    <div class="form-group">
+                        <label id="lblCol1">メインカラー:</label>
+                        <input type="color" id="themeColorPicker" value="#00f0ff">
+                    </div>
+                    <div class="form-group">
+                        <label id="lblCol2">サブカラー:</label>
+                        <input type="color" id="themeColorPicker2" value="#ff007f">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label id="lblColors">テーマプリセット</label>
+                    <div class="palette-container" id="paletteContainer"></div>
+                </div>
+
+                <h3 class="section-title">Operational Status Data</h3>
+                <div class="form-group">
+                    <label id="lblPlaystyle">プレイスタイル (複数選択可)</label>
+                    <div class="checkbox-grid" id="playstyleGrid"></div>
+                </div>
+
+                <div class="form-group">
+                    <label id="lblFavRace">好みの種族 (複数選択可)</label>
+                    <div class="checkbox-grid" id="raceGrid"></div>
+                </div>
+
+                <div class="form-group">
+                    <label id="lblProgress">メインストーリー進行度</label>
+                    <div id="progressGroup" class="story-progress-grid"></div>
+                </div>
+
+                <div class="form-group">
+                    <label id="lblComment">裏面コメント</label>
+                    <div class="comment-container">
+                        <textarea id="backComment" rows="5" placeholder="改行もできます"></textarea>
+                        <select id="textFontComment" class="comment-font-select">
+                            <option value="'Orbitron', sans-serif" selected>Orbitron</option>
+                            <option value="'Cinzel', serif">Cinzel</option>
+                            <option value="'Montserrat', sans-serif">Montserrat</option>
+                            <option value="'Share Tech Mono', monospace">Tech Mono</option>
+                            <option value="'Noto Sans JP', sans-serif">Noto Sans JP</option>
+                            <option value="'M PLUS 1p', sans-serif">M PLUS</option>
+                            <option value="'Noto Sans KR', sans-serif">Noto Sans KR</option>
+                            <option value="'Black Han Sans', sans-serif">Black Han Sans</option>
+                        </select>
+                    </div>
+                </div>
+
             </div>
-            
-            <div class="form-group" style="margin-bottom: 14px;">
-                <label id="lblFont" style="color:#a5a5b5;">▼ テキストフォントシステム (名前・コメント)</label>
-                <select id="textFontFamily">
-                    <option value='"Orbitron", sans-serif'>CYBER ORBITRON</option>
-                    <option value='"Share Tech Mono", monospace'>TECH MONO</option>
-                    <option value='"Hachi Maru Pop", sans-serif'>HACHI MARU POP</option>
-                    <option value="sans-serif">STANDARD SANS</option>
-                </select>
+
+            <div class="preview-panel">
+                <div class="preview-wrapper">
+                    <span class="neon-badge">[ FRONT PREVIEW ]</span>
+                    <div class="image-clip-container" id="frontClipBox">
+                        <img id="resultImage" class="preview-image interactive-front" alt="Front Card Preview">
+                    </div>
+                </div>
+                <div class="preview-wrapper">
+                    <span class="neon-badge">[ REAR PREVIEW ]</span>
+                    <div class="image-clip-container" id="backClipBox">
+                        <img id="resultImageBack" class="preview-image" alt="Rear Card Preview">
+                    </div>
+                </div>
+                <div id="lblInst" class="inst-text">★表面画像の上をドラッグで写真の位置を調整、ホイールで拡大縮小できます</div>
             </div>
-            
-            <div class="form-group" style="margin-bottom: 0;">
-                <label id="lblBackText" style="color:#a5a5b5;">▼ 裏面ベース文字色</label>
-                <div style="display:flex; gap:15px;">
-                    <label><input type="radio" name="backTextColor" value="#ffffff" checked> WHITE</label>
-                    <label><input type="radio" name="backTextColor" value="#000000"> BLACK</label>
-                </div>
-            </div>
-        </div>
 
-        <div class="form-group">
-            <label id="lblPlaystyle">プレイスタイル (複数選択可)</label>
-            <div class="checkbox-grid" id="playstyleGrid">
-                </div>
-        </div>
-
-        <div class="form-group">
-            <label id="lblFavRace">好みの種族 (複数選択可)</label>
-            <div class="checkbox-grid" id="raceGrid">
-                </div>
-        </div>
-
-        <div class="form-group">
-            <label id="lblProgress">メインストーリー進行度 (最高到達点)</label>
-            <div class="radio-grid" id="progressGroup">
-                </div>
-        </div>
-
-        <div class="form-group">
-            <label id="lblComment">裏面通信コメント</label>
-            <textarea id="backComment" rows="3">不夜街ソリューション・ナインにて潜伏中。パッチアップデートを待つ。</textarea>
         </div>
     </div>
 
-    <div class="preview-side">
-        <div class="preview-box">
-            <p>// FRONT_VIEW (表面)</p>
-            <img id="resultImage" alt="Front Side Preview">
-        </div>
-        <div class="preview-box">
-            <p>// REAR_VIEW (裏面)</p>
-            <img id="resultImageBack" alt="Back Side Preview">
-        </div>
-    </div>
-</div>
+    <footer>
+        <div><a href="#terms" class="footer-link" id="lblFooterTerms">利用規約</a></div>
+        <div>Generator System v5.2 // <a href="https://x.com/Notio_n" target="_blank" rel="noopener noreferrer" class="footer-link">@Notio_n</a></div>
+    </footer>
 
-<canvas id="cardCanvas" class="hidden-canvas"></canvas>
-<canvas id="cardCanvasBack" class="hidden-canvas"></canvas>
-<div id="hiddenQrContainer" style="display:none;"></div>
+    <canvas id="cardCanvas"></canvas>
+    <canvas id="cardCanvasBack"></canvas>
+    <div id="hiddenQrContainer"></div>
 
-<script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
